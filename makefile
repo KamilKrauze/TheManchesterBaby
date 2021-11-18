@@ -1,4 +1,4 @@
-main: ./main.cpp ./system.cpp
-	g++ -g -Wall -Wextra -Werror -o main ./main.cpp ./system.cpp
+main: ./main.c ./system.c
+	gcc -g -Wall -Wextra -Werror -o main ./main.c ./system.c
 clean:
 	rm -f -r main

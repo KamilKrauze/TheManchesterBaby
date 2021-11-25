@@ -14,7 +14,7 @@ function dotOIt()
 	dotO=`echo "$removeDot" | cut -d'/' -f2`
 
 	printf "\n$dotO.o:\t$1\n" >> makefile
-	printf "\tgcc -g -Wall -Wextra -Werror -c $1" >> makefile
+	printf "\tgcc -O2 -g -Wall -Wextra -Werror -c $1" >> makefile
 
 	#Append the .o to the file name use that for appending lines to a file
 	arrDotOs=(${arrDotOs[@]} "$dotO.o")
@@ -87,7 +87,7 @@ case $type in
 		echo -e $srcfiles
 
 		printf "main: $srcfiles" >> makefile
-		printf "\n\tg++ -g -Wall -Wextra -Werror -o main $srcfiles" >> makefile
+		printf "\n\tg++ -O2 -g -Wall -Wextra -Werror -o main $srcfiles" >> makefile
 
 		for i in "${cppoutput[@]}"
 		do

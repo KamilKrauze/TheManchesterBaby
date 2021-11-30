@@ -1,12 +1,12 @@
-#include <stdio.h>
+#include <iostream>
 
-#include "system.h"
+//#include "system.h"
 
 using namespace std;
 
 int main()
 {
-	clear();
+	//clear();
 	cout << "Hello, World!" << endl;
 	return 0;
 }

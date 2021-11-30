@@ -1,1 +1,2 @@
-void clear();
+#include <cstdlib>
+int clear();

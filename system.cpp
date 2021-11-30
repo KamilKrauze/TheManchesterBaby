@@ -1,5 +1,11 @@
-#include "system.h"
+#ifndef SYSTEM_H
+#define SYSTEM_H
+	
+	#include "system.h"
 
-void clear()
-{
-}
+	int clear()
+	{
+		return system("clear");
+	}
+
+#endif

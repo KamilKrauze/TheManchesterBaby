@@ -1,6 +1,7 @@
 #ifndef MANCHESTER_BABY_H
 #define MANCHESTER_BABY_H
-#include <string>
+
+#include <vector>
 
 class ManchesterBaby
 {
@@ -10,13 +11,13 @@ public:
     void start();
 
     // Get a copy of a word from the store
-    std::string get_addr(short idx);
+    std::string get_addr(uint8_t addr);
     // Get the accumulator value
-    unsigned int get_accumulator();
+    int32_t get_accumulator();
 
     void load_program(std::string filename);
-    // TODO: expect a vector of instructions? Should probably be
-    void load_program(std::string *store);
+    // TODO: expect a vector of instructions?
+    void load_program(std::vector<std::string> store);
 
 private:
     /*
@@ -29,6 +30,7 @@ private:
     // Because of the weird requirements of of the project, the binary is stored in strings
     // Manchester baby had a memory of 32 words, so an array can be used to simulate the whole memory
     // Each string must be 32 chars long, but there isn't a way to enforce that
+    // TODO: use a bitset to store the 'store'?
     std::string store[32];
 
     // Instruction that is being executed
@@ -36,7 +38,10 @@ private:
     // Address of the current instruction
     uint32_t program_counter;
     // The Accumulator
-    uint32_t accumulator;
+    int32_t accumulator;
+
+    // Stores line number of current operation to avoid passing it to every function
+    uint8_t line_no;
 
     // The operations should only be called from execution loop
 

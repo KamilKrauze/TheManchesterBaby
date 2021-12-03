@@ -8,6 +8,7 @@ class ManchesterBaby
 public:
     ManchesterBaby();
 
+    // Run the currently loaded program
     void start();
 
     // Get a copy of a word from the store
@@ -15,18 +16,9 @@ public:
     // Get the accumulator value
     int32_t get_accumulator();
 
-    void load_program(std::string filename);
-    // TODO: expect a vector of instructions?
     void load_program(std::vector<std::string> store);
 
 private:
-    /*
-    TODO: create a class for instrucion?
-    Should be nicer to use and work with, but I think the goal is
-    to be as close to the internal processes of SSEM, and any processing
-    of the instruction is undesirable.
-    */
-
     // Because of the weird requirements of of the project, the binary is stored in strings
     // Manchester baby had a memory of 32 words, so an array can be used to simulate the whole memory
     // Each string must be 32 chars long, but there isn't a way to enforce that
@@ -58,7 +50,7 @@ private:
     // 011 - 6
     void CMP();
     // 111 - 7
-    void STP(); // TODO: remove
+    // void STP();
 };
 
 #endif // !MANCHESTER_BABY_H

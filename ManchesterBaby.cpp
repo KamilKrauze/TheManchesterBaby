@@ -18,6 +18,24 @@ ManchesterBaby::ManchesterBaby()
     }
 }
 
+void ManchesterBaby::load_program(vector<string> store)
+{
+    for (size_t line = 0; (line < 31) && (line < store.size()); line++)
+    {
+        this->store[line] = store[line];
+    }
+}
+
+int32_t ManchesterBaby::get_accumulator()
+{
+    return this->accumulator;
+}
+
+string ManchesterBaby::get_addr(uint8_t addr)
+{
+    return this->store[addr];
+}
+
 int32_t reverse_and_stoi(string s)
 {
     reverse(s.begin(), s.end());
@@ -38,7 +56,6 @@ int32_t binstr2s_to_int32_t(string line)
     }
 }
 
-// TODO: check that it actually works, and works in edge cases
 string int32_t_to_binstr2s(int32_t num)
 {
     string output;
@@ -143,36 +160,32 @@ void ManchesterBaby::start()
     }
 }
 
-void ManchesterBaby::load_program(vector<string> store)
-{
-    for (size_t line = 0; (line < 31) && (line < store.size()); line++)
-    {
-        this->store[line] = store[line];
-    }
-}
-
-int32_t ManchesterBaby::get_accumulator()
-{
-    return this->accumulator;
-}
-
-std::string ManchesterBaby::get_addr(uint8_t addr)
-{
-    return this->store[addr];
-}
-
 int main()
 {
     ManchesterBaby test;
 
-    cout << "binstr2s_to_int32_t: " << (binstr2s_to_int32_t("10000000001000000000000000000000") == 1025 ? "Pass" : "Fail") << endl;
-    cout << "binstr2s_to_int32_t: " << (binstr2s_to_int32_t("10110110010000000000000000000000") == 621 ? "Pass" : "Fail") << endl;
-    cout << "binstr2s_to_int32_t: " << (binstr2s_to_int32_t("00000000000000000000000000000000") == 0 ? "Pass" : "Fail") << endl;
-    cout << "binstr2s_to_int32_t: " << (binstr2s_to_int32_t("11111111111111111111111111111110") == 2147483647 ? "Pass" : "Fail") << endl;
-
-    cout << "binstr2s_to_int32_t: " << (binstr2s_to_int32_t("11111111110111111111111111111111") == -1025 ? "Pass" : "Fail") << endl;
-    cout << "binstr2s_to_int32_t: " << (binstr2s_to_int32_t("11111111111111111111111111111111") == -1 ? "Pass" : "Fail") << endl;
-    cout << "binstr2s_to_int32_t: " << (binstr2s_to_int32_t("00000000000000000000000000000001") == -2147483648 ? "Pass" : "Fail") << endl;
+    cout << "binstr2s_to_int32_t:" << endl;
+    cout << (binstr2s_to_int32_t("10000000001000000000000000000000") == 1025 ? "Pass" : "Fail") << endl;
+    cout << (binstr2s_to_int32_t("10110110010000000000000000000000") == 621 ? "Pass" : "Fail") << endl;
+    cout << (binstr2s_to_int32_t("00000000000000000000000000000000") == 0 ? "Pass" : "Fail") << endl;
+    cout << (binstr2s_to_int32_t("11111111111111111111111111111110") == 2147483647 ? "Pass" : "Fail") << endl;
+    cout << endl;
+    cout << (binstr2s_to_int32_t("11111111110111111111111111111111") == -1025 ? "Pass" : "Fail") << endl;
+    cout << (binstr2s_to_int32_t("11111111111111111111111111111111") == -1 ? "Pass" : "Fail") << endl;
+    cout << (binstr2s_to_int32_t("00000000000000000000000000000001") == -2147483648 ? "Pass" : "Fail") << endl;
+    cout << endl;
+    cout << (binstr2s_to_int32_t("00000000000000000000000000000001") == -2147483648 ? "Pass" : "Fail") << endl;
+    cout << "int32_t_to_binstr2s: " << endl;
+    cout << ("10000000001000000000000000000000" == int32_t_to_binstr2s(1025) ? "Pass" : "Fail") << endl;
+    cout << ("10110110010000000000000000000000" == int32_t_to_binstr2s(621) ? "Pass" : "Fail") << endl;
+    cout << ("00000000000000000000000000000000" == int32_t_to_binstr2s(0) ? "Pass" : "Fail") << endl;
+    cout << ("11111111111111111111111111111110" == int32_t_to_binstr2s(2147483647) ? "Pass" : "Fail") << endl;
+    cout << endl;
+    cout << ("11111111110111111111111111111111" == int32_t_to_binstr2s(-1025) ? "Pass" : "Fail") << endl;
+    cout << ("11111111111111111111111111111111" == int32_t_to_binstr2s(-1) ? "Pass" : "Fail") << endl;
+    cout << ("00000000000000000000000000000001" == int32_t_to_binstr2s(-2147483648) ? "Pass" : "Fail") << endl;
+    cout << endl;
+    cout << ("00000000000000000000000000000001" == int32_t_to_binstr2s(-2147483648) ? "Pass" : "Fail") << endl;
 
     // BabyTest1-MC.txt
     test.load_program(vector<string>{"00000000000000000000000000000000",

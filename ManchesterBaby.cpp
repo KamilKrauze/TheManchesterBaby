@@ -50,7 +50,7 @@ int32_t ManchesterBaby::get_accumulator()
 // Get a string with binary data stored at 'addr' in store
 string ManchesterBaby::get_addr(uint8_t addr)
 {
-    if (addr < 0 || addr > 31)
+    if (addr > 31)
     {
         throw invalid_argument("The addres must be within [0-31] range.");
     }
@@ -156,7 +156,7 @@ void ManchesterBaby::start()
     {
         // The program counter is always incremented before execution
         // Which is why the program code starts at store[1]
-        program_counter++;
+        program_counter = (program_counter + 1) % 32;
         // Fetch
         present_instruction = store[program_counter];
 

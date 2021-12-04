@@ -16,6 +16,8 @@ public:
     // Get the accumulator value
     int32_t get_accumulator();
 
+    // Load a program from an array of strings with binary code
+    // Each string MUST be 32 characters long, and there can be up to 32 strings
     void load_program(std::vector<std::string> store);
 
 private:

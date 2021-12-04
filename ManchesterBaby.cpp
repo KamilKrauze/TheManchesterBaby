@@ -24,6 +24,12 @@ void ManchesterBaby::load_program(vector<string> store)
     size_t line = 0;
     for (; line < store.size(); line++)
     {
+        // All lines MUST be 32 bits(chars) long
+        if (store[line].length() != 32)
+        {
+            throw invalid_argument("Line " + to_string(line) + " is not 32 bits long.");
+        }
+
         this->store[line] = store[line];
     }
 
@@ -44,6 +50,10 @@ int32_t ManchesterBaby::get_accumulator()
 // Get a string with binary data stored at 'addr' in store
 string ManchesterBaby::get_addr(uint8_t addr)
 {
+    if (addr < 0 || addr > 31)
+    {
+        throw invalid_argument("The addres must be within [0-31] range.");
+    }
     return this->store[addr];
 }
 

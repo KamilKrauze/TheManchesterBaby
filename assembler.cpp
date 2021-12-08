@@ -1,8 +1,5 @@
-#include <iostream>
-#include<fstream>
-#include <string>
-#include <vector>
-using namespace std;
+#include "assembler.h"
+#include "system.h"
 
 //makes a string out of a bigger string (might exist as a function bu oh well)
 string stringPartToString(string line, int start, int end){
@@ -16,7 +13,7 @@ string stringPartToString(string line, int start, int end){
 
 //replace string by instruction number
 string instToInt(string input){
-	bool test = false;
+	//bool test = false;
 	string result= "***";
 	string inst[8]= {"JMP", "JRP", "LDN", "STO", "SUB", "SUB", "CMP", "STP"};
 	string bin[8]= {"000", "001", "010", "011", "100", "101", "110", "111"};
@@ -26,7 +23,7 @@ string instToInt(string input){
 		if (/*input.compare(inst[i])==1*/ input == inst[i])
 		{
 			//cout << "yes"<<endl;
-			test = true;
+			//test = true;
 			return bin[i];
 		}
 	}
@@ -64,7 +61,7 @@ int checkInst(string input){
 
 int assembler(){
 	//dw about that for now
-	int initialAddress;
+	//int initialAddress;
 	
 	//line to print on the mc file
 	char output[32];
@@ -155,13 +152,13 @@ int assembler(){
 				cout << endl;*/
 
 				//initalise line to be full of 0 because it would do weird things otherwise
- 				for (int i = 0; i < 31; ++i)
+ 				for (size_t i = 0; i < 31; ++i)
  				{
  					output[i] = '0';
  				}
 
  				//put binary value in the mc file
- 				for (int i = 0; i < binary.size(); ++i)
+ 				for (size_t i = 0; i < binary.size(); ++i)
   				{
   					output[i] = binary[i];
   				}
@@ -220,7 +217,7 @@ int assembler(){
  	   	lineCounter++;
  	}
 
- 	   	for (int i = 0; i < variables.size(); ++i)
+ 	   	for (size_t i = 0; i < variables.size(); ++i)
  	   	{
  	   		cout << variables[i] << "->" << variablesNum[i]<<endl;
  	   	}	
@@ -256,7 +253,7 @@ void test(int n){
 	{    
 		cout<<a[i];    
 	}*/ 
-	for (int i = 0; i < a.size(); ++i)
+	for (size_t i = 0; i < a.size(); ++i)
 	{
 		cout << a[i];
 	}
@@ -265,9 +262,10 @@ void test(int n){
 	cout << a.size() <<endl;
 }
 
-int main()
-{
-	//test(10);
-	assembler();
-	return 0;
-}
+// int main()
+// {
+// 	//test(10);
+// 	clear();
+// 	assembler();
+// 	return 0;
+// }

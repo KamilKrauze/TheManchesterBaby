@@ -1,11 +1,13 @@
-main: main.o system.o
-	g++ -g -Wall -Wextra -Werror -o main main.o system.o
+main: main.o assembler.o system.o
+	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -o main main.o assembler.o system.o
 main.o:	./main.cpp
-	gcc -O2 -g -Wall -Wextra -Werror -c ./main.cpp
+	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./main.cpp
+assembler.o: ./assembler.cpp
+	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./assembler.cpp
 system.o:	./system.cpp
-	gcc -O2 -g -Wall -Wextra -Werror -c ./system.cpp
+	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./system.cpp
 clean:
-	rm -f -r main main.o system.o
+	rm -f -r main main.o assembler.o system.o
 rebuild:
-	rm -f -r main main.o system.o
+	rm -f -r main main.o assembler.o system.o
 	make

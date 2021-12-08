@@ -1,5 +1,4 @@
 #include "assembler.h"
-#include "system.h"
 
 //makes a string out of a bigger string (might exist as a function bu oh well)
 string stringPartToString(string line, int start, int end){
@@ -261,11 +260,3 @@ void test(int n){
 	cout << endl;
 	cout << a.size() <<endl;
 }
-
-// int main()
-// {
-// 	//test(10);
-// 	clear();
-// 	assembler();
-// 	return 0;
-// }

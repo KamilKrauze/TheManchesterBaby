@@ -1,6 +1,5 @@
 #ifndef ASSEMBLER_H
     #define ASSEMBLER_H
-    #include "assembler.h"
     #include <iostream>
     #include <fstream>
     #include <string>

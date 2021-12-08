@@ -1,13 +1,13 @@
 #include <iostream>
 
 #include "system.h"
-#include "assembler.h"
+//#include "assembler.h"
+#include "menu.h"
 
 using namespace std;
 
 int main()
 {
-	clear();
-	assembler();
+	mainMenu();
 	return 0;
 }

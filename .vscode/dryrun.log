@@ -1,0 +1,8 @@
+make: Entering directory '/home/soul7734/Github/TheManchesterBaby'
+g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./main.cpp
+g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./menu.cpp ./menu.h
+g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./assembler.cpp ./assembler.h
+g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./system.cpp ./system.h
+g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -o main main.o menu.o assembler.o system.o
+make: Leaving directory '/home/soul7734/Github/TheManchesterBaby'
+ 

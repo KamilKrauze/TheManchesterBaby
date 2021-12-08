@@ -2,6 +2,7 @@
     #define MENU_H
     #include <iostream>
     #include <string>
+    #include <regex> //Regular expressions library
 
     #include "menu.h"
     #include "system.h"
@@ -9,19 +10,17 @@
 
     using namespace std;
 
-    enum menuState {
-        mainmenu,
-        mcloaded,
-        mcnotloaded,
-    };
-    
-    extern menuState menu_state;
-
     // Helper functions on displaying menu (text based)
     void mainMenu();
+    void machineCodeMenu();
+    void assemblyMenu();
+    
+    // User input for every type of menu
     void mainMenuChoice();
-    void machineCodeOptions();
+    void machineCodeChoice();
+    void assemblyChoice();
 
-    void determineMenuToShow();
+    bool validateInput(const string* const text); //Check if number is numerical
+
     
 #endif

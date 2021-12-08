@@ -9,7 +9,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
  
 
-# Make data base, printed on Wed Dec  8 15:47:06 2021
+# Make data base, printed on Wed Dec  8 16:10:05 2021
 
 # Variables
 
@@ -194,7 +194,7 @@ rebuild:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-12-08 15:18:37.1522913
+#  Last modified 2021-12-08 16:09:41.2100344
 #  File has been updated.
 #  Successfully updated.
 
@@ -233,7 +233,7 @@ assembler.o: assembler.cpp assembler.h
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 11):
-	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./assembler.cpp ./assembler.h
+	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./assembler.cpp ./assembler.h
 
 # Not a target:
 .DEFAULT:
@@ -253,28 +253,29 @@ main: main.o menu.o assembler.o system.o
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 2):
-	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -o main main.o menu.o assembler.o system.o
+	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -o main main.o menu.o assembler.o system.o
 
 main.o: main.cpp
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 5):
-	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./main.cpp
+	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./main.cpp
 
+ 
 menu.o: menu.cpp menu.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 8):
-	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./menu.cpp ./menu.h
+	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./menu.cpp ./menu.h
 
 system.o: system.cpp system.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 14):
-	g++ -O2 -g -Wno-unused-variable -Wall -Wextra -Werror -c ./system.cpp ./system.h
+	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./system.cpp ./system.h
 
 # files hash-table stats:
 # Load=18/1024=2%, Rehash=0, Collisions=0/43=0%
@@ -290,6 +291,6 @@ system.o: system.cpp system.h
 # strcache performance: lookups = 58 / hit rate = 46%
 # hash-table stats:
 # Load=31/8192=0%, Rehash=0, Collisions=1/58=2%
-# Finished Make data base on Wed Dec  8 15:47:06 2021
+# Finished Make data base on Wed Dec  8 16:10:05 2021
 
  

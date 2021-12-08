@@ -172,8 +172,6 @@ void mainMenuChoice()
     }
 }
 
-
-
 bool validateInput(const string* const text)
 {
     regex pattern("[0-9]"); //Declares a regex pattern where if it contains the full number set

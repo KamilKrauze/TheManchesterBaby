@@ -1,12 +1,13 @@
 #include <iostream>
 
-//#include "system.h"
+#include "system.h"
+#include "assembler.h"
 
 using namespace std;
 
 int main()
 {
-	//clear();
-	cout << "Hello, World!" << endl;
+	clear();
+	assembler();
 	return 0;
 }

@@ -21,6 +21,4 @@
     void assemblyChoice();
 
     bool validateInput(const string* const text); //Check if number is numerical
-
-    
 #endif

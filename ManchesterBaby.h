@@ -8,8 +8,13 @@ class ManchesterBaby
 public:
     ManchesterBaby();
 
-    // Run the currently loaded program
-    void start();
+    // Sets memory and all registers to their default values.
+    void reset();
+
+    // Run the currently loaded program until stop
+    void run();
+    // Fetch and execute a signgle instruction
+    bool step();
 
     // Get a copy of a word from the store
     std::string get_addr(uint8_t addr);
@@ -36,8 +41,16 @@ private:
 
     // Stores line number of current operation to avoid passing it to every function
     uint8_t line_no;
+    // Stores the current operation
+    uint8_t op;
 
-    // The operations should only be called from execution loop
+    bool stop;
+    bool test_flip_flop;
+
+    void fetch();
+    void decode();
+    void execute();
+    void printout();
 
     // 000 - 0
     void JMP();
@@ -52,7 +65,7 @@ private:
     // 011 - 6
     void CMP();
     // 111 - 7
-    // void STP();
+    void STP();
 };
 
 #endif // !MANCHESTER_BABY_H

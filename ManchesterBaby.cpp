@@ -10,8 +10,29 @@ using namespace std;
 
 ManchesterBaby::ManchesterBaby()
 {
+    this->program_counter = 0;
+    this->accumulator = 0;
+
+    this->stop = false;
+    this->test_flip_flop = false;
+
     // The initial memory should be 32 lines of '0'
-    for (unsigned int i = 0; i < 32; i++)
+    for (size_t i = 0; i < 32; i++)
+    {
+        string zeros(32, '0');
+        store[i] = zeros;
+    }
+}
+
+void ManchesterBaby::reset()
+{
+    this->program_counter = 0;
+    this->accumulator = 0;
+
+    this->stop = false;
+    this->test_flip_flop = false;
+
+    for (size_t i = 0; i < 32; i++)
     {
         string zeros(32, '0');
         store[i] = zeros;
@@ -142,61 +163,91 @@ void ManchesterBaby::CMP()
 {
     if (this->accumulator < 0)
     {
-        this->program_counter++;
+        this->test_flip_flop = true;
     }
 }
 
-void ManchesterBaby::start()
+void ManchesterBaby::STP()
 {
-    program_counter = 0;
-    accumulator = 0;
+    // Set the stop flag
+    this->stop = true;
+}
 
-    bool stop = false;
-    while (!stop)
+void ManchesterBaby::fetch()
+{
+    // The program counter is always incremented before execution
+    // Which is why the program code starts at store[1]
+    if (this->test_flip_flop)
     {
-        // The program counter is always incremented before execution
-        // Which is why the program code starts at store[1]
-        program_counter = (program_counter + 1) % 32;
-        // Fetch
-        present_instruction = store[program_counter];
-
-        // I would just use switch-case with the substring, but
-        // strings can not be in the expression of the switch
-        // Thanks, C++
-
-        // Get the bits corresponding to the instruction (13,14,15)
-        int op = reverse_and_stoi(present_instruction.substr(13, 3));
-        this->line_no = reverse_and_stoi(this->present_instruction.substr(0, 5));
-
-        switch (op)
-        {
-        case 0:
-            JMP();
-            break;
-        case 1:
-            JRP();
-            break;
-        case 2:
-            LDN();
-            break;
-        case 3:
-            STO();
-            break;
-        case 4:
-        case 5:
-            SUB();
-            break;
-        case 6:
-            CMP();
-            break;
-        case 7:
-            // STP();
-            stop = true;
-            break;
-        default:
-            break;
-        }
+        this->program_counter++;
+        this->test_flip_flop = false;
     }
+
+    this->program_counter = (this->program_counter + 1) % 32;
+    this->present_instruction = this->store[this->program_counter];
+}
+
+void ManchesterBaby::decode()
+{
+    // Get the bits corresponding to the instruction (13,14,15)
+    this->op = reverse_and_stoi(this->present_instruction.substr(13, 3));
+    // Get the bits corresponding to the operand of the instruction
+    this->line_no = reverse_and_stoi(this->present_instruction.substr(0, 5));
+}
+
+void ManchesterBaby::execute()
+{
+    switch (op)
+    {
+    case 0:
+        JMP();
+        break;
+    case 1:
+        JRP();
+        break;
+    case 2:
+        LDN();
+        break;
+    case 3:
+        STO();
+        break;
+    case 4:
+    case 5:
+        SUB();
+        break;
+    case 6:
+        CMP();
+        break;
+    case 7:
+        STP();
+        break;
+    }
+}
+
+void ManchesterBaby::printout() {}
+
+void ManchesterBaby::run()
+{
+    while (!this->stop)
+    {
+        this->fetch();
+        this->decode();
+        this->execute();
+    }
+}
+
+bool ManchesterBaby::step()
+{
+    if (!this->stop)
+    {
+        this->fetch();
+        this->decode();
+        this->execute();
+
+        return true;
+    }
+
+    return false;
 }
 
 int main()
@@ -224,7 +275,6 @@ int main()
     cout << ("11111111111111111111111111111111" == int32_t_to_binstr2s(-1) ? "Pass" : "Fail") << endl;
     cout << ("00000000000000000000000000000001" == int32_t_to_binstr2s(-2147483648) ? "Pass" : "Fail") << endl;
     cout << endl;
-    cout << ("00000000000000000000000000000001" == int32_t_to_binstr2s(-2147483648) ? "Pass" : "Fail") << endl;
 
     // BabyTest1-MC.txt
     test.load_program(vector<string>{"00000000000000000000000000000000",
@@ -237,7 +287,7 @@ int main()
                                      "10000000001000000000000000000000",
                                      "10110110010000000000000000000000",
                                      "00000000000000000000000000000000"});
-    test.start();
+    test.run();
     cout << "Expected: 1646, Got: " << test.get_accumulator() << " == " << binstr2s_to_int32_t(test.get_addr(9)) << endl;
     return 0;
 }

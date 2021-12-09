@@ -88,7 +88,7 @@ int assembler(const string* const fpMachineCode){
 
  	
   	//loop to read the file
- 	while(getline(reader, line)) {
+ 	while(reader >> line) {
  		//this was a test
  		/*int counter = 0;
  		output[31] = counter;

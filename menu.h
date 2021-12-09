@@ -12,7 +12,7 @@
 
     // Helper functions on displaying menu (text based)
     void mainMenu();
-    void manchesterBabyChoice();
+    void manchesterBabyMenu();
     void assemblyMenu();
     
     // User input for every type of menu

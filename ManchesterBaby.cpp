@@ -1,12 +1,4 @@
-#include <algorithm>
-#include <bitset>
-
 #include "ManchesterBaby.h"
-
-// TODO: remove
-#include <iostream>
-
-using namespace std;
 
 ManchesterBaby::ManchesterBaby()
 {
@@ -60,6 +52,43 @@ void ManchesterBaby::load_program(vector<string> store)
         string zeros(32, '0');
         this->store[line] = zeros;
     }
+}
+
+void ManchesterBaby::readMachineCode(const string* const filepath)
+{   
+    vector<string> store;
+    bool isFPValid = validateFilePath(filepath);
+    if(!isFPValid)
+    {
+        throw invalid_argument("Invalid filepath. Incorrect file type and/or file does not exist.");
+    }
+    
+    string line = "";
+
+    ifstream reader(*filepath);
+    try
+    {
+        while(reader >> line)
+        {
+            for(size_t i=0; i<line.length(); i++)
+            {
+                if(line[i] == '0' || line[i] == '1')
+                    continue;
+                else
+                {
+                    throw invalid_argument("File is not in a binary format. Must be only 1s and 0s.");
+                    break;
+                }
+            }
+            store.push_back(line);
+        }
+    }
+    catch(const exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    load_program(store);
 }
 
 // Get the current value of the accumulator

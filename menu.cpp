@@ -77,8 +77,7 @@ void machineCodeChoice()
         {
             if(choice == "1") // Run instructions
             {
-                assembler(&fp);
-                break;
+                exit(0);
             }
             else if (choice == "2") // Reload machine code file
             {
@@ -105,6 +104,16 @@ void machineCodeChoice()
 void assemblyChoice()
 {
     string choice;
+
+    string fp;
+
+    cout << "Enter a filepath of your assembly instructions file: " << endl;
+    bool isFpValid = false;
+    while(isFpValid != true)
+    {
+        cin >> fp;
+        isFpValid = validateFilePath(&fp);
+    }
     
     while(true)
     {
@@ -122,6 +131,8 @@ void assemblyChoice()
         {
             if(choice == "1") // Run instructions
             {
+                assembler(&fp);
+                break;
             }
             else if (choice == "2") // Reload assembly instructions file
             {
@@ -171,7 +182,6 @@ void mainMenuChoice()
             else if (choice == "2") // Assembly menu
             {
                 assemblyChoice();
-                break;
             }
             else if(choice == "3") // Exit
             {

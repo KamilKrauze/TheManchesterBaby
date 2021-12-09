@@ -32,6 +32,8 @@ void manchesterBabyMenu()
 
 void manchesterBabyChoice()
 {
+    ManchesterBaby manBaby;
+
     string choice;
     string fp;
 
@@ -45,7 +47,7 @@ void manchesterBabyChoice()
     
     while(true)
     {
-        clear();
+        //clear();
         cout << "Filepath: " << fp << endl;
         manchesterBabyMenu();
         cout << "User: " << endl; 
@@ -61,11 +63,17 @@ void manchesterBabyChoice()
         {
             if(choice == "1") // Run instructions
             {
-                exit(0); // TODO: Replace it with the manchester baby class baby.run()...
+                manBaby.readMachineCode(&fp);
             }
             else if (choice == "2") // Insert new machine code file
             {
-                break; // TODO: Use manchester baby read from file function to get instructions.
+                cout << "Enter a filepath of your machine code: " << endl;
+                isFpValid = false;
+                while(isFpValid != true)
+                {
+                    cin >> fp;
+                    isFpValid = validateFilePath(&fp);
+                }
             }
             else if (choice == "3") // Show code in assembly
             {
@@ -174,9 +182,9 @@ void mainMenuChoice()
         }
         else
         {
-            if(choice == "1") //Machine code menu
+            if(choice == "1") //Manchester Baby menu
             {
-                machineCodeChoice();
+                manchesterBabyChoice();
                 break;
             }
             else if (choice == "2") // Assembly menu

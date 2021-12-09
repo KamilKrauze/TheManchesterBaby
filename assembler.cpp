@@ -154,7 +154,7 @@ int assembler(const string* const fpMachineCode){
  				for (size_t i = 0; i < 31; ++i)
  				{
  					output[i] = '0';
- 				}
+				}
 
  				//put binary value in the mc file
  				for (size_t i = 0; i < binary.size(); ++i)

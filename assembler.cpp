@@ -1,6 +1,6 @@
 #include "assembler.h"
 
-//makes a string out of a bigger string (might exist as a function bu oh well)
+//makes a string out of a bigger string (might exist as a function but oh well)
 string stringPartToString(string line, int start, int end){
 	string result;
 	for (int i = start; i < end; ++i)

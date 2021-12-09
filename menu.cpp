@@ -71,6 +71,7 @@ void machineCodeChoice()
         if(!validateInput(&choice))
         {
             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
+            sleep(2);
             continue;
         }
         else
@@ -96,7 +97,10 @@ void machineCodeChoice()
                 exit(0); // Exit program
             }
             else
+            {
                 cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
+                sleep(2);
+            }
         }
     }
 }
@@ -126,6 +130,7 @@ void assemblyChoice()
         if(!validateInput(&choice))
         {
             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
+            sleep(1.3);
             continue;
         }
         else
@@ -159,7 +164,10 @@ void assemblyChoice()
                 exit(0); // Exit program
             }
             else
+            {
                 cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
+                sleep(2);
+            }
         }
     }
 }
@@ -178,6 +186,7 @@ void mainMenuChoice()
         if(!validateInput(&choice))
         {
             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
+            sleep(2);
             continue;
         }
         else
@@ -196,7 +205,10 @@ void mainMenuChoice()
                 exit(0); // Exit program
             }
             else
+            {
                 cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
+                sleep(2);
+            }
         }
     }
 }

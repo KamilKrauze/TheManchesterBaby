@@ -2,6 +2,11 @@
 #define MANCHESTER_BABY_H
 
 #include <vector>
+#include <algorithm>
+#include <bitset>
+#include <iostream>
+
+#include "ManchesterBaby.h"
 
 class ManchesterBaby
 {

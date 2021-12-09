@@ -58,7 +58,7 @@ int checkInst(string input){
 	}
 }*/
 
-int assembler(const string* const fpMachineCode){
+int assembler(const string* const fpMachineCode, const string* const outputFP){
 	//dw about that for now
 	//int initialAddress;
 	

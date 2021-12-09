@@ -18,13 +18,13 @@ void machineCodeMenu()
 {
     cout << endl;
     cout << "\t=======================================" << endl;
-    cout << "\t              MACHINE CODE             " << endl;
+    cout << "\t            MANCHESTER BABY            " << endl;
     cout << "\t=======================================" << endl;
 
     cout << "\t\t1. Run" << endl;
-    cout << "\t\t2. Reload machine code" << endl;
-    cout << "\t\t3. Insert new machine code" << endl;
-    cout << "\t\t4. Show code in assembly" << endl;
+    cout << "\t\t2. Insert new machine code file" << endl;
+    cout << "\t\t3. Show code in assembly" << endl;
+    cout << "\t\t4. Return to main menu" << endl;
     cout << "\t\t5. Exit" << endl;
 
     cout << "Enter a number that corresponds to the options above: " << endl;
@@ -41,7 +41,8 @@ void assemblyMenu()
     cout << "\t\t2. Insert new assembly instructions file" << endl;
     cout << "\t\t3. Show it in machine code" << endl;
     cout << "\t\t4. Export assembly instructions to file as machine code" << endl;
-    cout << "\t\t5. Exit" << endl;
+    cout << "\t\t5. Return to main menu" << endl;
+    cout << "\t\t6. Exit" << endl;
 
     cout << "Enter a number that corresponds to the options above: " << endl;
 }
@@ -79,16 +80,17 @@ void machineCodeChoice()
             {
                 exit(0);
             }
-            else if (choice == "2") // Reload machine code file
+            else if (choice == "2") // Insert new machine code file
             {
                 break;
             }
-            else if (choice == "3") // Insert new machine code file
+            else if (choice == "3") // Show code in assembly
             {
                 break;
             }
-            else if (choice == "4") // Show code in assembly
+            else if (choice == "4") // Return to main menu
             {
+                mainMenuChoice();
                 break;
             }
             else if (choice == "5")
@@ -155,7 +157,12 @@ void assemblyChoice()
             else if (choice == "4") // Export as machine code to file
             {
             }
-            else if (choice == "5")
+            else if (choice == "5") // Return to main menu
+            {
+                mainMenuChoice();
+                break;
+            }
+            else if (choice == "6")
             {
                 exit(0); // Exit program
             }

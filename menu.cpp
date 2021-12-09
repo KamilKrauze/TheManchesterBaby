@@ -50,10 +50,20 @@ void assemblyMenu()
 void machineCodeChoice()
 {
     string choice;
+    string fp;
+
+    cout << "Enter a filepath of your machine code: " << endl;
+    bool isFpValid = false;
+    while(isFpValid != true)
+    {
+        cin >> fp;
+        isFpValid = validateFilePath(&fp);
+    }
     
     while(true)
     {
         clear();
+        cout << "Filepath: " << fp << endl;
         machineCodeMenu();
         cout << "User: " << endl; 
         cin >> choice;
@@ -67,6 +77,7 @@ void machineCodeChoice()
         {
             if(choice == "1") // Run instructions
             {
+                assembler(&fp);
                 break;
             }
             else if (choice == "2") // Reload machine code file
@@ -176,4 +187,10 @@ bool validateInput(const string* const text)
 {
     regex pattern("[0-9]"); //Declares a regex pattern where if it contains the full number set
     return regex_match(*text, pattern); //Return true if string contains numbers only
+}
+
+bool validateFilePath(const string* const filepath) //Check if filepath is exists - https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-14-17-c - 09/12/2021
+{
+    ifstream infile(*filepath);
+    return infile.good();
 }

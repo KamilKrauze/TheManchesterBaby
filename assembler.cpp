@@ -58,7 +58,7 @@ int checkInst(string input){
 	}
 }*/
 
-int assembler(){
+int assembler(const string* const fpMachineCode){
 	//dw about that for now
 	//int initialAddress;
 	
@@ -79,7 +79,7 @@ int assembler(){
   	int minusComment=0;
 
   	//things to read/write
-  	ifstream reader( "file.txt" );
+  	ifstream reader( *fpMachineCode );
   	ofstream writer( "mc.txt" );
   	if( ! reader ) {
   	  	cout << "Error opening input file" << endl;

@@ -1,6 +1,5 @@
 #ifndef ASSEMBLER_H
     #define ASSEMBLER_H
-    #include "assembler.h"
     #include <iostream>
     #include <fstream>
     #include <string>
@@ -10,6 +9,6 @@
     string stringPartToString(string line, int start, int end);
     string instToInt(string input);
     int checkInst(string input);
-    int assembler();
+    int assembler(const string* const fpMachineCode, const string* const outputFP);
     void test(int n);
 #endif

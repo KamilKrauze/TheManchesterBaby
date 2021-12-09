@@ -7,6 +7,7 @@
     #include "menu.h"
     #include "system.h"
     #include "assembler.h"
+    #include "ManchesterBaby.h"
 
     using namespace std;
 

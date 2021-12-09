@@ -30,7 +30,7 @@ void manchesterBabyMenu()
     cout << "Enter a number that corresponds to the options above: " << endl;
 }
 
-void machineCodeChoice()
+void manchesterBabyChoice()
 {
     string choice;
     string fp;

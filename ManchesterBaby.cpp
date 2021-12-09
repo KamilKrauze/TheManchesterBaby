@@ -1,7 +1,5 @@
 #include "ManchesterBaby.h"
 
-using namespace std;
-
 ManchesterBaby::ManchesterBaby()
 {
     this->program_counter = 0;

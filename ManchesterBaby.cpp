@@ -1,4 +1,12 @@
+#include <algorithm>
+#include <bitset>
+
 #include "ManchesterBaby.h"
+
+// TODO: remove
+#include <iostream>
+
+using namespace std;
 
 ManchesterBaby::ManchesterBaby()
 {

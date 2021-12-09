@@ -2,13 +2,6 @@
 #define MANCHESTER_BABY_H
 
 #include <vector>
-#include <algorithm>
-#include <bitset>
-#include <iostream>
-
-#include "ManchesterBaby.h"
-
-using namespace std;
 
 class ManchesterBaby
 {
@@ -24,23 +17,23 @@ public:
     bool step();
 
     // Get a copy of a word from the store
-    string get_addr(uint8_t addr);
+    std::string get_addr(uint8_t addr);
     // Get the accumulator value
     int32_t get_accumulator();
 
     // Load a program from an array of strings with binary code
     // Each string MUST be 32 characters long, and there can be up to 32 strings
-    void load_program(vector<string> store);
+    void load_program(std::vector<std::string> store);
 
 private:
     // Because of the weird requirements of of the project, the binary is stored in strings
     // Manchester baby had a memory of 32 words, so an array can be used to simulate the whole memory
     // Each string must be 32 chars long, but there isn't a way to enforce that
     // TODO: use a bitset to store the 'store'?
-    string store[32];
+    std::string store[32];
 
     // Instruction that is being executed
-    string present_instruction;
+    std::string present_instruction;
     // Address of the current instruction
     uint32_t program_counter;
     // The Accumulator

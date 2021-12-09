@@ -17,8 +17,8 @@ system.o: ./system.cpp ./system.h
 	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./system.cpp ./system.h
 
 clean:
-	rm -f -r main main.o menu.o ManchesterBaby.o assembler.o system.o
+	rm -f -r main main.o menu.o assembler.o system.o
 
 rebuild:
-	rm -f -r main main.o menu.o ManchesterBaby.o assembler.o system.o
+	rm -f -r main main.o menu.o assembler.o system.o
 	make

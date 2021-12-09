@@ -12,12 +12,12 @@
 
     // Helper functions on displaying menu (text based)
     void mainMenu();
-    void machineCodeMenu();
+    void manchesterBabyChoice();
     void assemblyMenu();
     
     // User input for every type of menu
     void mainMenuChoice();
-    void machineCodeChoice();
+    void manchesterBabyChoice();
     void assemblyChoice();
 
     bool validateInput(const string* const text); //Check if number is numerical

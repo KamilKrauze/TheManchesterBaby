@@ -4,10 +4,10 @@ void mainMenu()
 {
     cout << endl;
     cout << "\t=======================================" << endl;
-    cout << "\t            MANCHESTER BABY            " << endl;
+    cout << "\t               MAIN MENU               " << endl;
     cout << "\t=======================================" << endl;
 
-    cout << "\t\t1. Insert machine code" << endl;
+    cout << "\t\t1. Manchester Baby" << endl;
     cout << "\t\t2. Insert assembly instructions" << endl;
     cout << "\t\t3. Exit\n" << endl;
 
@@ -78,15 +78,15 @@ void machineCodeChoice()
         {
             if(choice == "1") // Run instructions
             {
-                exit(0);
+                exit(0); // TODO: Replace it with the manchester baby class baby.run()...
             }
             else if (choice == "2") // Insert new machine code file
             {
-                break;
+                break; // TODO: Use manchester baby read from file function to get instructions.
             }
             else if (choice == "3") // Show code in assembly
             {
-                break;
+                break; // Possible implementation
             }
             else if (choice == "4") // Return to main menu
             {
@@ -108,9 +108,8 @@ void machineCodeChoice()
 
 void assemblyChoice()
 {
-    string choice;
-
-    string fp;
+    string choice; // User input
+    string fp; // Filepath of assembly instructions
 
     cout << "Enter a filepath of your assembly instructions file: " << endl;
     bool isFpValid = false;
@@ -131,8 +130,8 @@ void assemblyChoice()
         if(!validateInput(&choice))
         {
             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
-            sleep(1.3);
-            continue;
+            sleep(1);
+            continue;  
         }
         else
         {

@@ -118,6 +118,7 @@ void assemblyChoice()
     while(true)
     {
         clear();
+        cout << "Filepath: " << fp << endl;
         assemblyMenu();
         cout << "User: " << endl; 
         cin >> choice;
@@ -132,13 +133,20 @@ void assemblyChoice()
             if(choice == "1") // Run instructions
             {
                 assembler(&fp);
-                break;
+                sleep(3);
             }
             else if (choice == "2") // Reload assembly instructions file
             {
             }
             else if (choice == "3") // Insert new assembly instruction file
             {
+                cout << "Enter a filepath of your assembly instructions file: " << endl;
+                bool isFpValid = false;
+                while(isFpValid != true)
+                {
+                    cin >> fp;
+                    isFpValid = validateFilePath(&fp);
+                }
             }
             else if (choice == "4") // Show as machine code
             {

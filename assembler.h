@@ -9,6 +9,6 @@
     string stringPartToString(string line, int start, int end);
     string instToInt(string input);
     int checkInst(string input);
-    int assembler(const string* const fpMachineCode);
+    int assembler(const string* const fpMachineCode, const string* const outputFP);
     void test(int n);
 #endif

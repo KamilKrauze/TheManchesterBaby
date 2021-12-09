@@ -1,7 +1,6 @@
 #include "assembler.h"
-#include "system.h"
 
-//makes a string out of a bigger string (might exist as a function bu oh well)
+//makes a string out of a bigger string (might exist as a function but oh well)
 string stringPartToString(string line, int start, int end){
 	string result;
 	for (int i = start; i < end; ++i)
@@ -59,7 +58,7 @@ int checkInst(string input){
 	}
 }*/
 
-int assembler(){
+int assembler(const string* const fpMachineCode, const string* const outputFP){
 	//dw about that for now
 	//int initialAddress;
 	
@@ -80,7 +79,7 @@ int assembler(){
   	int minusComment=0;
 
   	//things to read/write
-  	ifstream reader( "file.txt" );
+  	ifstream reader( *fpMachineCode );
   	ofstream writer( "mc.txt" );
   	if( ! reader ) {
   	  	cout << "Error opening input file" << endl;
@@ -89,7 +88,7 @@ int assembler(){
 
  	
   	//loop to read the file
- 	while(getline(reader, line)) {
+ 	while(reader >> line) {
  		//this was a test
  		/*int counter = 0;
  		output[31] = counter;
@@ -155,7 +154,7 @@ int assembler(){
  				for (size_t i = 0; i < 31; ++i)
  				{
  					output[i] = '0';
- 				}
+				}
 
  				//put binary value in the mc file
  				for (size_t i = 0; i < binary.size(); ++i)
@@ -261,11 +260,3 @@ void test(int n){
 	cout << endl;
 	cout << a.size() <<endl;
 }
-
-// int main()
-// {
-// 	//test(10);
-// 	clear();
-// 	assembler();
-// 	return 0;
-// }

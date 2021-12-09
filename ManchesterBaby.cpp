@@ -250,44 +250,44 @@ bool ManchesterBaby::step()
     return false;
 }
 
-int main()
-{
-    ManchesterBaby test;
+// int main()
+// {
+//     ManchesterBaby test;
 
-    cout << "binstr2s_to_int32_t:" << endl;
-    cout << (binstr2s_to_int32_t("10000000001000000000000000000000") == 1025 ? "Pass" : "Fail") << endl;
-    cout << (binstr2s_to_int32_t("10110110010000000000000000000000") == 621 ? "Pass" : "Fail") << endl;
-    cout << (binstr2s_to_int32_t("00000000000000000000000000000000") == 0 ? "Pass" : "Fail") << endl;
-    cout << (binstr2s_to_int32_t("11111111111111111111111111111110") == 2147483647 ? "Pass" : "Fail") << endl;
-    cout << endl;
-    cout << (binstr2s_to_int32_t("11111111110111111111111111111111") == -1025 ? "Pass" : "Fail") << endl;
-    cout << (binstr2s_to_int32_t("11111111111111111111111111111111") == -1 ? "Pass" : "Fail") << endl;
-    cout << (binstr2s_to_int32_t("00000000000000000000000000000001") == -2147483648 ? "Pass" : "Fail") << endl;
-    cout << endl;
-    cout << (binstr2s_to_int32_t("00000000000000000000000000000001") == -2147483648 ? "Pass" : "Fail") << endl;
-    cout << "int32_t_to_binstr2s: " << endl;
-    cout << ("10000000001000000000000000000000" == int32_t_to_binstr2s(1025) ? "Pass" : "Fail") << endl;
-    cout << ("10110110010000000000000000000000" == int32_t_to_binstr2s(621) ? "Pass" : "Fail") << endl;
-    cout << ("00000000000000000000000000000000" == int32_t_to_binstr2s(0) ? "Pass" : "Fail") << endl;
-    cout << ("11111111111111111111111111111110" == int32_t_to_binstr2s(2147483647) ? "Pass" : "Fail") << endl;
-    cout << endl;
-    cout << ("11111111110111111111111111111111" == int32_t_to_binstr2s(-1025) ? "Pass" : "Fail") << endl;
-    cout << ("11111111111111111111111111111111" == int32_t_to_binstr2s(-1) ? "Pass" : "Fail") << endl;
-    cout << ("00000000000000000000000000000001" == int32_t_to_binstr2s(-2147483648) ? "Pass" : "Fail") << endl;
-    cout << endl;
+//     cout << "binstr2s_to_int32_t:" << endl;
+//     cout << (binstr2s_to_int32_t("10000000001000000000000000000000") == 1025 ? "Pass" : "Fail") << endl;
+//     cout << (binstr2s_to_int32_t("10110110010000000000000000000000") == 621 ? "Pass" : "Fail") << endl;
+//     cout << (binstr2s_to_int32_t("00000000000000000000000000000000") == 0 ? "Pass" : "Fail") << endl;
+//     cout << (binstr2s_to_int32_t("11111111111111111111111111111110") == 2147483647 ? "Pass" : "Fail") << endl;
+//     cout << endl;
+//     cout << (binstr2s_to_int32_t("11111111110111111111111111111111") == -1025 ? "Pass" : "Fail") << endl;
+//     cout << (binstr2s_to_int32_t("11111111111111111111111111111111") == -1 ? "Pass" : "Fail") << endl;
+//     cout << (binstr2s_to_int32_t("00000000000000000000000000000001") == -2147483648 ? "Pass" : "Fail") << endl;
+//     cout << endl;
+//     cout << (binstr2s_to_int32_t("00000000000000000000000000000001") == -2147483648 ? "Pass" : "Fail") << endl;
+//     cout << "int32_t_to_binstr2s: " << endl;
+//     cout << ("10000000001000000000000000000000" == int32_t_to_binstr2s(1025) ? "Pass" : "Fail") << endl;
+//     cout << ("10110110010000000000000000000000" == int32_t_to_binstr2s(621) ? "Pass" : "Fail") << endl;
+//     cout << ("00000000000000000000000000000000" == int32_t_to_binstr2s(0) ? "Pass" : "Fail") << endl;
+//     cout << ("11111111111111111111111111111110" == int32_t_to_binstr2s(2147483647) ? "Pass" : "Fail") << endl;
+//     cout << endl;
+//     cout << ("11111111110111111111111111111111" == int32_t_to_binstr2s(-1025) ? "Pass" : "Fail") << endl;
+//     cout << ("11111111111111111111111111111111" == int32_t_to_binstr2s(-1) ? "Pass" : "Fail") << endl;
+//     cout << ("00000000000000000000000000000001" == int32_t_to_binstr2s(-2147483648) ? "Pass" : "Fail") << endl;
+//     cout << endl;
 
-    // BabyTest1-MC.txt
-    test.load_program(vector<string>{"00000000000000000000000000000000",
-                                     "11100000000000100000000000000000",
-                                     "00010000000000010000000000000000",
-                                     "10010000000001100000000000000000",
-                                     "10010000000000100000000000000000",
-                                     "10010000000001100000000000000000",
-                                     "00000000000001110000000000000000",
-                                     "10000000001000000000000000000000",
-                                     "10110110010000000000000000000000",
-                                     "00000000000000000000000000000000"});
-    test.run();
-    cout << "Expected: 1646, Got: " << test.get_accumulator() << " == " << binstr2s_to_int32_t(test.get_addr(9)) << endl;
-    return 0;
-}
+//     // BabyTest1-MC.txt
+//     test.load_program(vector<string>{"00000000000000000000000000000000",
+//                                      "11100000000000100000000000000000",
+//                                      "00010000000000010000000000000000",
+//                                      "10010000000001100000000000000000",
+//                                      "10010000000000100000000000000000",
+//                                      "10010000000001100000000000000000",
+//                                      "00000000000001110000000000000000",
+//                                      "10000000001000000000000000000000",
+//                                      "10110110010000000000000000000000",
+//                                      "00000000000000000000000000000000"});
+//     test.run();
+//     cout << "Expected: 1646, Got: " << test.get_accumulator() << " == " << binstr2s_to_int32_t(test.get_addr(9)) << endl;
+//     return 0;
+// }

@@ -38,11 +38,10 @@ void assemblyMenu()
     cout << "\t=======================================" << endl;
 
     cout << "\t\t1. Run" << endl;
-    cout << "\t\t2. Reload assembly instructions file" << endl;
-    cout << "\t\t3. Insert new assembly instructions file" << endl;
-    cout << "\t\t4. Show it in machine code" << endl;
-    cout << "\t\t5. Export assembly instructions to file as machine code" << endl;
-    cout << "\t\t6. Exit" << endl;
+    cout << "\t\t2. Insert new assembly instructions file" << endl;
+    cout << "\t\t3. Show it in machine code" << endl;
+    cout << "\t\t4. Export assembly instructions to file as machine code" << endl;
+    cout << "\t\t5. Exit" << endl;
 
     cout << "Enter a number that corresponds to the options above: " << endl;
 }
@@ -140,10 +139,7 @@ void assemblyChoice()
                 assembler(&fp);
                 sleep(3);
             }
-            else if (choice == "2") // Reload assembly instructions file
-            {
-            }
-            else if (choice == "3") // Insert new assembly instruction file
+            else if (choice == "2") // Insert new assembly instruction file
             {
                 cout << "Enter a filepath of your assembly instructions file: " << endl;
                 bool isFpValid = false;
@@ -153,13 +149,13 @@ void assemblyChoice()
                     isFpValid = validateFilePath(&fp);
                 }
             }
-            else if (choice == "4") // Show as machine code
+            else if (choice == "3") // Show as machine code
             {
             }
-            else if (choice == "5") // Export as machine code to file
+            else if (choice == "4") // Export as machine code to file
             {
             }
-            else if (choice == "6")
+            else if (choice == "5")
             {
                 exit(0); // Exit program
             }

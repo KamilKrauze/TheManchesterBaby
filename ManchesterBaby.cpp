@@ -1,5 +1,13 @@
-#include "ManchesterBaby.h"
+#include <vector>
+#include <bitset>
+#include <string>
+#include <algorithm>
+#include <fstream>
 
+#include "ManchesterBaby.h"
+#include "menu.h"
+
+using namespace std;
 ManchesterBaby::ManchesterBaby()
 {
     this->program_counter = 0;
@@ -54,38 +62,31 @@ void ManchesterBaby::load_program(vector<string> store)
     }
 }
 
-void ManchesterBaby::readMachineCode(const string* const filepath)
-{   
+void ManchesterBaby::readMachineCode(const string *const filepath)
+{
     vector<string> store;
-    bool isFPValid = validateFilePath(filepath);
-    if(!isFPValid)
-    {
-        throw invalid_argument("Invalid filepath. Incorrect file type and/or file does not exist.");
-    }
-    
     string line = "";
 
-    ifstream reader(*filepath);
-    try
+    ifstream reader;
+    reader.open(*filepath);
+    if (!reader.good())
     {
-        while(reader >> line)
-        {
-            for(size_t i=0; i<line.length(); i++)
-            {
-                if(line[i] == '0' || line[i] == '1')
-                    continue;
-                else
-                {
-                    throw invalid_argument("File is not in a binary format. Must be only 1s and 0s.");
-                    break;
-                }
-            }
-            store.push_back(line);
-        }
+        throw invalid_argument("Invalid input filepath. Incorrect file type and/or file does not exist.");
     }
-    catch(const exception& e)
+
+    while (reader >> line)
     {
-        std::cerr << e.what() << '\n';
+        for (size_t i = 0; i < line.length(); i++)
+        {
+            if (line[i] == '0' || line[i] == '1')
+                continue;
+            else
+            {
+                throw invalid_argument("File is not in a binary format. Must be only 1s and 0s.");
+                break;
+            }
+        }
+        store.push_back(line);
     }
 
     load_program(store);

@@ -9,7 +9,8 @@ void mainMenu()
 
     cout << "\t\t1. Manchester Baby" << endl;
     cout << "\t\t2. Insert assembly instructions" << endl;
-    cout << "\t\t3. Exit\n" << endl;
+    cout << "\t\t3. Exit" << endl;
+    cout << endl;
 
     cout << "Enter a number that corresponds to the options above: " << endl;
 }
@@ -23,7 +24,7 @@ void manchesterBabyMenu()
 
     cout << "\t\t1. Run" << endl;
     cout << "\t\t2. Insert new machine code file" << endl;
-    cout << "\t\t3. Show code in assembly" << endl;
+    cout << "\t\t3. Display the accumulator value" << endl;
     cout << "\t\t4. Return to main menu" << endl;
     cout << "\t\t5. Exit" << endl;
 
@@ -35,25 +36,14 @@ void manchesterBabyChoice()
     ManchesterBaby manBaby;
 
     string choice;
-    string fp;
 
-    cout << "Enter a filepath of your machine code: " << endl;
-    bool isFpValid = false;
-    while(isFpValid != true)
+    while (true)
     {
-        cin >> fp;
-        isFpValid = validateFilePath(&fp);
-    }
-    
-    while(true)
-    {
-        //clear();
-        cout << "Filepath: " << fp << endl;
         manchesterBabyMenu();
-        cout << "User: " << endl; 
+        cout << "User: " << endl;
         cin >> choice;
 
-        if(!validateInput(&choice))
+        if (!validateInput(&choice))
         {
             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
             sleep(2);
@@ -61,23 +51,23 @@ void manchesterBabyChoice()
         }
         else
         {
-            if(choice == "1") // Run instructions
+            if (choice == "1") // Run instructions
             {
-                manBaby.readMachineCode(&fp);
+                manBaby.run();
             }
             else if (choice == "2") // Insert new machine code file
             {
+                string fp;
+
                 cout << "Enter a filepath of your machine code: " << endl;
-                isFpValid = false;
-                while(isFpValid != true)
-                {
-                    cin >> fp;
-                    isFpValid = validateFilePath(&fp);
-                }
+                cin >> fp;
+
+                manBaby.readMachineCode(&fp);
+                cout << "Loaded " << fp << endl;
             }
-            else if (choice == "3") // Show code in assembly
+            else if (choice == "3") // Display the accumulator
             {
-                break; // Possible implementation
+                cout << "Accumulator: " << manBaby.get_accumulator() << endl;
             }
             else if (choice == "4") // Return to main menu
             {
@@ -113,13 +103,13 @@ void manchesterBabyChoice()
 //         clear();
 //         cout << "Filepath: " << fp << endl;
 //         assemblyMenu();
-//         cout << "User: " << endl; 
+//         cout << "User: " << endl;
 //         cin >> choice;
 //         if(!validateInput(&choice))
 //         {
 //             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
 //             sleep(1);
-//             continue;  
+//             continue;
 //         }
 //         else
 //         {
@@ -166,15 +156,15 @@ void mainMenuChoice()
 {
     string choice;
     string fp;
-    
-    while(true)
+
+    while (true)
     {
         clear();
         mainMenu();
-        cout << "User: " << endl; 
+        cout << "User: " << endl;
         cin >> choice;
 
-        if(!validateInput(&choice))
+        if (!validateInput(&choice))
         {
             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
             sleep(2);
@@ -182,7 +172,7 @@ void mainMenuChoice()
         }
         else
         {
-            if(choice == "1") //Manchester Baby menu
+            if (choice == "1") //Manchester Baby menu
             {
                 manchesterBabyChoice();
                 break;
@@ -193,24 +183,14 @@ void mainMenuChoice()
                 string outputFP;
 
                 cout << "Enter a filepath of your assembly instructions: " << endl;
-                bool isFpValid = false;
-                while(isFpValid != true)
-                {
-                    cin >> assemblyFP;
-                    isFpValid = validateFilePath(&assemblyFP);
-                }
-                
+                cin >> assemblyFP;
+
                 cout << "Enter a filepath of where you want to output your file: " << endl;
-                isFpValid = false;
-                while(isFpValid != true)
-                {
-                    cin >> outputFP;
-                    isFpValid = validateFilePath(&outputFP);
-                }
-                
+                cin >> outputFP;
+
                 assembler(&assemblyFP, &outputFP);
             }
-            else if(choice == "3") // Exit
+            else if (choice == "3") // Exit
             {
                 exit(0); // Exit program
             }
@@ -223,14 +203,8 @@ void mainMenuChoice()
     }
 }
 
-bool validateInput(const string* const text)
+bool validateInput(const string *const text)
 {
-    regex pattern("[0-9]"); //Declares a regex pattern where if it contains the full number set
+    regex pattern("[0-9]");             //Declares a regex pattern where if it contains the full number set
     return regex_match(*text, pattern); //Return true if string contains numbers only
-}
-
-bool validateFilePath(const string* const filepath) //Check if filepath is exists - https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-14-17-c - 09/12/2021
-{
-    ifstream infile(*filepath);
-    return infile.good();
 }

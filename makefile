@@ -1,6 +1,8 @@
-CXX = c++
+CXX = g++
 CXXFLAGS = -std=c++17 -g -Wall -Wextra -Werror -pedantic \
-			-fsanitize=address -fno-omit-frame-pointer -D_FORTIFY_SOURCE=2
+			-fsanitize=address,undefined -fno-omit-frame-pointer -D_FORTIFY_SOURCE=2
+
+all: main
 
 main: main.o menu.o ManchesterBaby.o assembler.o system.o
 	$(CXX) $(CXXFLAGS) -o main main.o menu.o ManchesterBaby.o assembler.o system.o
@@ -21,8 +23,6 @@ system.o: ./system.cpp ./system.h
 	$(CXX) $(CXXFLAGS) -c ./system.cpp
 
 clean:
-	rm -f -r main main.o menu.o assembler.o system.o
+	rm -f -r main main.o menu.o assembler.o system.o ManchesterBaby.o
 
-rebuild:
-	rm -f -r main main.o menu.o assembler.o system.o
-	make
+rebuild: clean all

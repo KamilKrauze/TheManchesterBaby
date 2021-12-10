@@ -1,3 +1,10 @@
+/*
+	Kamil Krauze - 2414951
+	Sam Francis - 2413492
+	Antoine Bonfili - 2423967
+	Dmitrijs Novikovs - 2424525
+	Euan West - 2420987
+*/
 #ifndef CONVERT_H
 #define CONVERT_H
 int32_t binstr2s_to_int32_t(std::string line);

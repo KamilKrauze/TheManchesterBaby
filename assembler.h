@@ -9,6 +9,7 @@
     string stringPartToString(string line, int start, int end);
     string instToInt(string input);
     int checkInst(string input);
+    int checkVar(const vector<string> variables, string stringVar);
     int assembler(const string* const fpMachineCode, const string* const outputFP);
-    void test(int n);
+    void test();
 #endif

@@ -1,6 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/home/soul7734/Github/TheManchesterBaby'
-g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./menu.cpp ./menu.h
-g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -o main main.o menu.o assembler.o system.o
-make: Leaving directory '/home/soul7734/Github/TheManchesterBaby'
- 

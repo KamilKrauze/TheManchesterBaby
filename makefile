@@ -1,20 +1,24 @@
+CXX = c++
+CXXFLAGS = -std=c++17 -g -Wall -Wextra -Werror -pedantic \
+			-fsanitize=address -fno-omit-frame-pointer -D_FORTIFY_SOURCE=2
+
 main: main.o menu.o ManchesterBaby.o assembler.o system.o
-	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -o main main.o menu.o ManchesterBaby.o assembler.o system.o
+	$(CXX) $(CXXFLAGS) -o main main.o menu.o ManchesterBaby.o assembler.o system.o
 
 main.o: ./main.cpp
-	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./main.cpp
+	$(CXX) $(CXXFLAGS) -c ./main.cpp
 
 menu.o: ./menu.cpp ./menu.h
-	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./menu.cpp ./menu.h
+	$(CXX) $(CXXFLAGS) -c ./menu.cpp
 
 ManchesterBaby.o: ./ManchesterBaby.cpp ./ManchesterBaby.h
-	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./ManchesterBaby.cpp ./ManchesterBaby.h
+	$(CXX) $(CXXFLAGS) -c ./ManchesterBaby.cpp
 
 assembler.o: ./assembler.cpp ./assembler.h
-	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./assembler.cpp ./assembler.h
+	$(CXX) $(CXXFLAGS) -c ./assembler.cpp
 
 system.o: ./system.cpp ./system.h
-	g++ -O2 -std=c++17 -Wno-unused-variable -Wall -Wextra -Werror -c ./system.cpp ./system.h
+	$(CXX) $(CXXFLAGS) -c ./system.cpp
 
 clean:
 	rm -f -r main main.o menu.o assembler.o system.o

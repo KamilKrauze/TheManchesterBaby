@@ -21,7 +21,7 @@ public:
 
     // Load a program from an array of strings with binary code
     // Each string MUST be 32 characters long, and there can be up to 32 strings
-    void load_program(std::vector<std::string> store);
+    void load_program(std::vector<std::string> newStore);
 
     void readMachineCode(const std::string *const filepath);
 

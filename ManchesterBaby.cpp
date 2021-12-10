@@ -39,11 +39,11 @@ void ManchesterBaby::reset()
     }
 }
 
-void ManchesterBaby::load_program(vector<string> newStore)
+void ManchesterBaby::load_program(vector<string> store)
 {
     // Copy lines from 'store' to the store.
     size_t line = 0;
-    for (; line < newStore.size(); line++)
+    for (; line < store.size(); line++)
     {
         // All lines MUST be 32 bits(chars) long
         if (store[line].length() != 32)
@@ -51,7 +51,7 @@ void ManchesterBaby::load_program(vector<string> newStore)
             throw invalid_argument("Line " + to_string(line) + " is not 32 bits long.");
         }
 
-        this->store[line] = newStore[line];
+        this->store[line] = store[line];
     }
 
     // Fill remaining lines with zeros to avoid memory corruption from previous programs
@@ -64,7 +64,8 @@ void ManchesterBaby::load_program(vector<string> newStore)
 
 void ManchesterBaby::readMachineCode(const string *const filepath)
 {
-    vector<string> newStore;
+    vector<string> store;
+    string line = "";
 
     ifstream reader;
     reader.open(*filepath);
@@ -73,10 +74,9 @@ void ManchesterBaby::readMachineCode(const string *const filepath)
         throw invalid_argument("Invalid input filepath. Incorrect file type and/or file does not exist.");
     }
 
-    string line(32, '0');
-    while (getline(reader, line))
+    while (reader >> line)
     {
-        for (size_t i = 0; i < line.length() - 1; i++)
+        for (size_t i = 0; i < line.length(); i++)
         {
             if (line[i] == '0' || line[i] == '1')
                 continue;
@@ -86,10 +86,10 @@ void ManchesterBaby::readMachineCode(const string *const filepath)
                 break;
             }
         }
-        newStore.push_back(line);
+        store.push_back(line);
     }
 
-    load_program(newStore);
+    load_program(store);
 }
 
 // Get the current value of the accumulator
@@ -254,7 +254,17 @@ void ManchesterBaby::execute()
     }
 }
 
-void ManchesterBaby::printout() {}
+void ManchesterBaby::printout() 
+{
+    cout << endl;
+    cout << "\t=======================================" << endl;
+    cout << "\t                RUNNING                " << endl;
+    cout << "\t=======================================" << endl;
+
+    cout << "\t\tCurrent Line : " << present_instruction << endl;
+    cout << "\t\tProgram Counter : " << program_counter << endl;
+    cout << "\t\tAccumulator : " << accumulator << endl;
+}
 
 void ManchesterBaby::run()
 {
@@ -263,6 +273,7 @@ void ManchesterBaby::run()
         this->fetch();
         this->decode();
         this->execute();
+        this->printout();
     }
 }
 
@@ -273,6 +284,7 @@ bool ManchesterBaby::step()
         this->fetch();
         this->decode();
         this->execute();
+        this->printout();
 
         return true;
     }

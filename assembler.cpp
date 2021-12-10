@@ -58,6 +58,27 @@ int checkVar(const vector<string> variables, string stringVar)
 	return result;
 }
 
+string int32_t_to_binstr2s(int32_t num)
+{
+    string output;
+
+    if (num < 0)
+    {
+        // If the number is negative it needs to be stored in twos complement
+        // Does the opposite of what is done in binstr2s_to_int32_t() function for negative numbers
+        output = bitset<32>(~(-num - 1)).to_string();
+    }
+    else
+    {
+        // Simply convert the number into string
+        output = bitset<32>(num).to_string();
+    }
+
+    reverse(output.begin(), output.end());
+
+    return output;
+}
+
 /*void addToArray(string &varName[], string newVar, int &varValue[], int newValue){
 	int size = varValue.size();
 
@@ -163,13 +184,15 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 				//cout << varVal << endl;
 
 				//conversion to binary, rtl
-				int n = stoi(varVal);
+				/*int n = stoi(varVal);
 				vector<char> binary;
 				for (int i = 0; n > 0; i++)
 				{
 					binary.push_back((n % 2 + '0'));
 					n = n / 2;
-				}
+				}*/
+				
+				string binary32 = int32_t_to_binstr2s(stoi(varVal));
 
 				//initalise line to be full of 0 because it would do weird things otherwise
 				for (size_t i = 0; i < 31; ++i)
@@ -178,9 +201,9 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 				}
 
 				//put binary value in the mc file
-				for (size_t i = 0; i < binary.size(); ++i)
+				for (size_t i = 0; i < binary32.length(); ++i)
 				{
-					output[i] = binary[i];
+					output[i] = binary32[i];
 				}
 
 				//add variables to vectors

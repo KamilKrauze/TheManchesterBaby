@@ -12,7 +12,7 @@ string instToInt(string input)
 	//bool test = false;
 	string result = "***";
 	string inst[8] = {"JMP", "JRP", "LDN", "STO", "SUB", "SUB", "CMP", "STP"};
-	string bin[8] = {"000", "001", "010", "011", "100", "101", "110", "111"};
+	string bin[8] = {"000", "100", "010", "110", "001", "101", "011", "111"};
 	for (int i = 0; i < 8; ++i)
 	{
 		//cout << input << " = " << inst[i] << "?" << endl;
@@ -40,6 +40,17 @@ int checkInst(string input)
 		else
 		{
 			result = 0;
+		}
+	}
+	return result;
+}
+
+int checkVar(const vector<string> variables, string stringVar){
+	int result = -1;
+	for(size_t i = 0; i<variables.size();i++){
+		if (variables[i]==stringVar)
+		{
+			return i;
 		}
 	}
 	return result;
@@ -89,19 +100,29 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 		return 1;
 	}
 
+	string filename = "tempmc.txt";
 	ofstream writer;
-	writer.open(*outputFP, ios::out | ios::trunc);
+	writer.open(filename, ios::out | ios::trunc);
 	if (!writer.good())
 	{
 		cerr << "Error opening file for output" << endl;
 		return 1;
 	}
 
+	string filename2 = "tempass.txt";
+	ofstream writer4;
+	writer4.open(filename2, ios::out | ios::trunc);
+	if (!writer4.good())
+	{
+		cerr << "Error opening file for output" << endl;
+		return 1;
+	}	
+
 	//loop to read the file
 	while (getline(reader, line))
 	{
 		string label = stringPartToString(line, 0, 5);
-		cout << "INSTR: " << line << endl;
+		//cout << "INSTR: " << line << endl;
 
 		//count comments and exclude them from the mc file
 		if (line[0] == ';')
@@ -175,7 +196,7 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 				//cout << stringPartToString(line, 10, 13) << " "<<bin << endl;
 				for (int i = 0; i < 3; ++i)
 				{
-					output[i + 10] = bin[i];
+					output[i + 13] = bin[i];
 				}
 				//writer <<instToInt(stringPartToString(line, 10, 13));
 			}
@@ -190,36 +211,143 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 			{
 				writer << output[i];
 			}
+			writer4 << line<<endl;
+			//cout <<line;
 			writer << endl;
 		}
 		lineCounter++;
 	}
+	
 
-	for (size_t i = 0; i < variables.size(); ++i)
+	reader.close();
+	writer.close();
+
+	string tempass = "tempass.txt";
+
+	//new file to write to, so new reader and new writer
+	ifstream reader2;
+	reader2.open(tempass);
+	if (!reader2.good())
+	{
+		cout << "Error opening input file" << endl;
+		return 1;
+	}
+
+	string filename7 = "tempmc.txt";
+	ifstream reader3;
+	reader3.open(filename7);
+	if (!reader3.good())
+	{
+		cout << "Error opening input file" << endl;
+		return 1;
+	}
+	string line3;
+
+	//string filename = "mc3.txt";
+	ofstream writer2;
+	writer2.open(*outputFP, ios::out | ios::trunc);
+	if (!writer2.good())
+	{
+		cerr << "Error opening file for output" << endl;
+		return 1;
+	}
+
+	int lineCounter2 = 0;
+	int minusComment2 =0;
+
+	while ( getline(reader2, line) && getline(reader3, line3) ){
+
+		
+
+			int startline = 14;
+			int endword = startline;
+
+			while(line[startline]!=' '){
+				endword++;
+				startline++;
+			}		
+		
+
+		
+		if (line[0]==';')
+		{
+			
+		}
+
+	
+		//else{
+			cout <<line<<endl;
+
+			if ( checkVar( variables, stringPartToString(line, 14, endword) ) !=-1)
+			{
+			
+				//cout << variablesNum[ checkVar( variables, stringPartToString(line, 14, endword) ) ] <<endl;
+				int n = variablesNum[ checkVar( variables, stringPartToString(line, 14, endword) ) ];
+				vector<char> binary;
+				for (int i = 0; n > 0; i++)
+				{
+					binary.push_back((n % 2 + '0'));
+					n = n / 2;
+				}
+
+
+				/*for (int i = 0; i < binary.size(); ++i)
+				{
+					cout <<binary[i];
+				}
+				cout <<endl;*/
+
+				for (int i = 0; i < binary.size(); ++i)
+				{
+					
+					for (int i = binary.size(); i < 13; ++i)
+					{
+						binary.push_back('0');
+					}
+				}
+			
+				string bin;
+				for (int i = 0; i < 13; ++i)
+				{
+					bin.push_back(binary[i]);
+				}
+				//cout <<bin <<endl;
+				writer2 << bin << stringPartToString(line3, 13, 33);
+			}
+			else{
+				writer2 << line3;
+			}
+			writer2<<endl;
+			lineCounter2++;
+		}		
+
+	//}
+
+	
+
+	/*for (size_t i = 0; i < variables.size(); ++i)
 	{
 		cout << variables[i] << "->" << variablesNum[i] << endl;
-	}
+	}*/
 
 	writer.close();
 	reader.close();
 	return 0;
 }
 
-void test(int n)
-{
-
-	vector<int> a;
-	for (int i = 0; n > 0; i++)
-	{
-		a.push_back(n % 2);
-		n = n / 2;
-	}
-
-	for (size_t i = 0; i < a.size(); ++i)
-	{
-		cout << a[i];
-	}
-
-	cout << endl;
-	cout << a.size() << endl;
+/*
+void test(){
+	string input = "file.txt";
+	string output = "mc2.txt";
+	cout <<assembler(&input, &output) <<endl;
+	vector<string> str;
+	str.push_back("test");
+	str.push_back("trop");
+	cout << checkVar(str, "trop") << endl;
 }
+
+int main()
+{
+	test();
+	return 0;
+}*/

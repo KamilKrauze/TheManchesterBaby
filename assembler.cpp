@@ -1,4 +1,5 @@
 #include "assembler.h"
+#include "convert.h"
 
 //makes a string out of a bigger string (might exist as a function but oh well)
 string stringPartToString(string line, int start, int end)
@@ -56,27 +57,6 @@ int checkVar(const vector<string> variables, string stringVar)
 		}
 	}
 	return result;
-}
-
-string int32_t_to_binstr2s(int32_t num)
-{
-    string output;
-
-    if (num < 0)
-    {
-        // If the number is negative it needs to be stored in twos complement
-        // Does the opposite of what is done in binstr2s_to_int32_t() function for negative numbers
-        output = bitset<32>(~(-num - 1)).to_string();
-    }
-    else
-    {
-        // Simply convert the number into string
-        output = bitset<32>(num).to_string();
-    }
-
-    reverse(output.begin(), output.end());
-
-    return output;
 }
 
 /*void addToArray(string &varName[], string newVar, int &varValue[], int newValue){
@@ -191,7 +171,7 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 					binary.push_back((n % 2 + '0'));
 					n = n / 2;
 				}*/
-				
+
 				string binary32 = int32_t_to_binstr2s(stoi(varVal));
 
 				//initalise line to be full of 0 because it would do weird things otherwise

@@ -222,6 +222,7 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 
 	reader.close();
 	writer.close();
+	writer4.close();
 
 	string tempass = "tempass.txt";
 
@@ -324,8 +325,9 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 		cout << variables[i] << "->" << variablesNum[i] << endl;
 	}*/
 
-	writer.close();
-	reader.close();
+	writer2.close();
+	reader2.close();
+	reader3.close();
 	return 0;
 }
 

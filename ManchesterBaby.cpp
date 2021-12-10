@@ -2,6 +2,7 @@
 #include <bitset>
 #include <string>
 #include <algorithm>
+#include <iostream>
 #include <fstream>
 
 #include "ManchesterBaby.h"
@@ -39,11 +40,11 @@ void ManchesterBaby::reset()
     }
 }
 
-void ManchesterBaby::load_program(vector<string> store)
+void ManchesterBaby::load_program(vector<string> newStore)
 {
     // Copy lines from 'store' to the store.
     size_t line = 0;
-    for (; line < store.size(); line++)
+    for (; line < newStore.size(); line++)
     {
         // All lines MUST be 32 bits(chars) long
         if (store[line].length() != 32)
@@ -51,7 +52,7 @@ void ManchesterBaby::load_program(vector<string> store)
             throw invalid_argument("Line " + to_string(line) + " is not 32 bits long.");
         }
 
-        this->store[line] = store[line];
+        this->store[line] = newStore[line];
     }
 
     // Fill remaining lines with zeros to avoid memory corruption from previous programs
@@ -64,8 +65,7 @@ void ManchesterBaby::load_program(vector<string> store)
 
 void ManchesterBaby::readMachineCode(const string *const filepath)
 {
-    vector<string> store;
-    string line = "";
+    vector<string> newStore;
 
     ifstream reader;
     reader.open(*filepath);
@@ -74,9 +74,10 @@ void ManchesterBaby::readMachineCode(const string *const filepath)
         throw invalid_argument("Invalid input filepath. Incorrect file type and/or file does not exist.");
     }
 
-    while (reader >> line)
+    string line(32, '0');
+    while (getline(reader, line))
     {
-        for (size_t i = 0; i < line.length(); i++)
+        for (size_t i = 0; i < line.length() - 1; i++)
         {
             if (line[i] == '0' || line[i] == '1')
                 continue;
@@ -86,10 +87,10 @@ void ManchesterBaby::readMachineCode(const string *const filepath)
                 break;
             }
         }
-        store.push_back(line);
+        newStore.push_back(line);
     }
 
-    load_program(store);
+    load_program(newStore);
 }
 
 // Get the current value of the accumulator
@@ -103,7 +104,7 @@ string ManchesterBaby::get_addr(uint8_t addr)
 {
     if (addr > 31)
     {
-        throw invalid_argument("The addres must be within [0-31] range.");
+        throw invalid_argument("The address must be within [0-31] range.");
     }
     return this->store[addr];
 }
@@ -254,7 +255,7 @@ void ManchesterBaby::execute()
     }
 }
 
-void ManchesterBaby::printout() 
+void ManchesterBaby::printout()
 {
     cout << endl;
     cout << "\t=======================================" << endl;

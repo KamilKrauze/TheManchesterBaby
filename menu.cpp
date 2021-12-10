@@ -1,4 +1,12 @@
+#include <iostream>
+#include <string>
+
+#include "system.h"
+#include "assembler.h"
+#include "ManchesterBaby.h"
 #include "menu.h"
+
+using namespace std;
 
 void mainMenu()
 {
@@ -8,7 +16,7 @@ void mainMenu()
     cout << "\t=======================================" << endl;
 
     cout << "\t\t1. Manchester Baby" << endl;
-    cout << "\t\t2. Insert assembly instructions" << endl;
+    cout << "\t\t2. Assembler" << endl;
     cout << "\t\t3. Exit" << endl;
     cout << endl;
 
@@ -22,13 +30,14 @@ void manchesterBabyMenu()
     cout << "\t            MANCHESTER BABY            " << endl;
     cout << "\t=======================================" << endl;
 
-    cout << "\t\t1. Run" << endl;
-    cout << "\t\t2. Insert new machine code file" << endl;
-    cout << "\t\t3. Display the accumulator value" << endl;
-    cout << "\t\t4. Return to main menu" << endl;
-    cout << "\t\t5. Exit" << endl;
-
-    cout << "Enter a number that corresponds to the options above: " << endl;
+    cout << "\t\t1. Run until halt" << endl;
+    cout << "\t\t2. Execute a single step" << endl;
+    cout << "\t\t3. Load machine code from a file" << endl;
+    cout << "\t\t4. Display the accumulator value" << endl;
+    cout << "\t\t5. Display a line from the store" << endl;
+    cout << "\t\t6. Display all lines of the store" << endl;
+    cout << "\t\tb. Return to main menu" << endl;
+    cout << "\t\te. Exit" << endl;
 }
 
 void manchesterBabyChoice()
@@ -36,121 +45,101 @@ void manchesterBabyChoice()
     ManchesterBaby manBaby;
 
     string choice;
+    string fp = "";
 
     while (true)
     {
         manchesterBabyMenu();
-        cout << "User: " << endl;
+        cout << "Using machine code file: \"" << fp << "\"" << endl;
+        cout << "Your choice: ";
         cin >> choice;
 
-        if (!validateInput(&choice))
+        if (choice == "1") // Run instructions
         {
-            cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
-            sleep(2);
-            continue;
+            manBaby.run();
+            cout << "Manchester Baby halted.";
         }
-        else
+        else if (choice == "2") // Insert new machine code file
         {
-            if (choice == "1") // Run instructions
+            manBaby.step();
+        }
+        else if (choice == "3") // Load file
+        {
+            manBaby.reset();
+            while (true)
             {
-                manBaby.run();
-            }
-            else if (choice == "2") // Insert new machine code file
-            {
-                string fp;
-
                 cout << "Enter a filepath of your machine code: " << endl;
                 cin >> fp;
 
-                manBaby.readMachineCode(&fp);
-                cout << "Loaded " << fp << endl;
-            }
-            else if (choice == "3") // Display the accumulator
-            {
-                cout << "Accumulator: " << manBaby.get_accumulator() << endl;
-            }
-            else if (choice == "4") // Return to main menu
-            {
-                mainMenuChoice();
+                try
+                {
+                    manBaby.readMachineCode(&fp);
+                }
+                catch (const invalid_argument &e)
+                {
+                    cerr << e.what() << endl;
+                    continue;
+                }
                 break;
             }
-            else if (choice == "5")
+            cout << "Loaded \"" << fp << "\"" << endl;
+        }
+        else if (choice == "4") // Display the accumulator
+        {
+            cout << "Accumulator: " << manBaby.get_accumulator() << endl;
+        }
+        else if (choice == "5") // Display line
+        {
+            while (true)
             {
-                exit(0); // Exit program
+                cout << "Enter a memory address to print: ";
+                int addr;
+                cin >> addr;
+                if (cin.fail())
+                {
+                    cerr << "Could not parse an integer" << endl;
+                    cin.clear();
+                    cin.ignore(INT64_MAX, '\n');
+                    continue;
+                }
+
+                try
+                {
+                    cout << addr << ": " << manBaby.get_addr(addr) << endl;
+                }
+                catch (const exception &e)
+                {
+                    cerr << e.what() << endl;
+                    cin.clear();
+                    cin.ignore(INT64_MAX, '\n');
+                    continue;
+                }
+                break;
             }
-            else
-            {
-                cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
-                sleep(2);
-            }
+        }
+        else if (choice == "6") // Display all lines
+        {
+            cout << "===============================" << endl;
+            for (int addr = 0; addr < 32; addr++)
+                cout << ((addr > 9) ? "" : "0") << addr << ": " << manBaby.get_addr(addr) << endl;
+            cout << "===============================" << endl;
+        }
+        else if (choice == "b") // Return to main menu
+        {
+            mainMenuChoice();
+            break;
+        }
+        else if (choice == "e") // Exit program
+        {
+            exit(0);
+        }
+        else
+        {
+            cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
+            sleep(2);
         }
     }
 }
-
-// void assemblyChoice()
-// {
-//     string choice; // User input
-//     string fp; // Filepath of assembly instructions
-//     cout << "Enter a filepath of your assembly instructions file: " << endl;
-//     bool isFpValid = false;
-//     while(isFpValid != true)
-//     {
-//         cin >> fp;
-//         isFpValid = validateFilePath(&fp);
-//     }
-//     while(true)
-//     {
-//         clear();
-//         cout << "Filepath: " << fp << endl;
-//         assemblyMenu();
-//         cout << "User: " << endl;
-//         cin >> choice;
-//         if(!validateInput(&choice))
-//         {
-//             cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
-//             sleep(1);
-//             continue;
-//         }
-//         else
-//         {
-//             if(choice == "1") // Run instructions
-//             {
-//                 assembler(&fp);
-//                 sleep(3);
-//             }
-//             else if (choice == "2") // Insert new assembly instruction file
-//             {
-//                 cout << "Enter a filepath of your assembly instructions file: " << endl;
-//                 bool isFpValid = false;
-//                 while(isFpValid != true)
-//                 {
-//                     cin >> fp;
-//                     isFpValid = validateFilePath(&fp);
-//                 }
-//             }
-//             else if (choice == "3") // Show as machine code
-//             {
-//             }
-//             else if (choice == "4") // Export as machine code to file
-//             {
-//             }
-//             else if (choice == "5") // Return to main menu
-//             {
-//                 mainMenuChoice();
-//                 break;
-//             }
-//             else if (choice == "6")
-//             {
-//                 exit(0); // Exit program
-//             }
-//             else
-//             {
-//                 cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
-//                 sleep(2);
-//             }
-//         }
-//     }
-// }
 
 void mainMenuChoice()
 {
@@ -164,47 +153,32 @@ void mainMenuChoice()
         cout << "User: " << endl;
         cin >> choice;
 
-        if (!validateInput(&choice))
+        if (choice == "1") //Manchester Baby menu
         {
-            cout << "INCORRECT INPUT: " << choice << " is not an integer" << endl;
-            sleep(2);
-            continue;
+            manchesterBabyChoice();
+            break;
+        }
+        else if (choice == "2") // Assembly menu
+        {
+            string assemblyFP;
+            string outputFP;
+
+            cout << "Enter a filepath of your assembly instructions: " << endl;
+            cin >> assemblyFP;
+
+            cout << "Enter a filepath of where you want to output your file: " << endl;
+            cin >> outputFP;
+
+            assembler(&assemblyFP, &outputFP);
+        }
+        else if (choice == "q") // Exit
+        {
+            exit(0); // Exit program
         }
         else
         {
-            if (choice == "1") //Manchester Baby menu
-            {
-                manchesterBabyChoice();
-                break;
-            }
-            else if (choice == "2") // Assembly menu
-            {
-                string assemblyFP;
-                string outputFP;
-
-                cout << "Enter a filepath of your assembly instructions: " << endl;
-                cin >> assemblyFP;
-
-                cout << "Enter a filepath of where you want to output your file: " << endl;
-                cin >> outputFP;
-
-                assembler(&assemblyFP, &outputFP);
-            }
-            else if (choice == "3") // Exit
-            {
-                exit(0); // Exit program
-            }
-            else
-            {
-                cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
-                sleep(2);
-            }
+            cout << "INCORRECT INPUT: Option " << choice << " does not exist in this menu" << endl;
+            sleep(2);
         }
     }
-}
-
-bool validateInput(const string *const text)
-{
-    regex pattern("[0-9]");             //Declares a regex pattern where if it contains the full number set
-    return regex_match(*text, pattern); //Return true if string contains numbers only
 }

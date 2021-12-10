@@ -1,16 +1,5 @@
 #ifndef MENU_H
-    #define MENU_H
-    #include <iostream>
-    #include <string>
-    #include <regex> //Regular expressions library
-   
-    #include "menu.h"
-    #include "system.h"
-    #include "assembler.h"
-    #include "ManchesterBaby.h"
-
-    using namespace std;
-
+#define MENU_H
     // Helper functions on displaying menu (text based)
     void mainMenu();
     void manchesterBabyMenu();
@@ -21,6 +10,6 @@
     void manchesterBabyChoice();
     void assemblyChoice();
 
-    bool validateInput(const string* const text); //Check if number is numerical
-    bool validateFilePath(const string* const filepath); //Check if filepath is exists - https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-14-17-c - 09/12/2021
+    bool validateInput(const std::string* const text); //Check if number is numerical
+    bool validateFilePath(const std::string* const filepath); //Check if filepath is exists - https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-14-17-c - 09/12/2021
 #endif

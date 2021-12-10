@@ -45,10 +45,12 @@ int checkInst(string input)
 	return result;
 }
 
-int checkVar(const vector<string> variables, string stringVar){
+int checkVar(const vector<string> variables, string stringVar)
+{
 	int result = -1;
-	for(size_t i = 0; i<variables.size();i++){
-		if (variables[i]==stringVar)
+	for (size_t i = 0; i < variables.size(); i++)
+	{
+		if (variables[i] == stringVar)
 		{
 			return i;
 		}
@@ -116,7 +118,7 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 	{
 		cerr << "Error opening file for output" << endl;
 		return 1;
-	}	
+	}
 
 	//loop to read the file
 	while (getline(reader, line))
@@ -211,13 +213,12 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 			{
 				writer << output[i];
 			}
-			writer4 << line<<endl;
+			writer4 << line << endl;
 			//cout <<line;
 			writer << endl;
 		}
 		lineCounter++;
 	}
-	
 
 	reader.close();
 	writer.close();
@@ -253,77 +254,70 @@ int assembler(const string *const assemblyFP, const string *const outputFP)
 	}
 
 	int lineCounter2 = 0;
-	int minusComment2 =0;
 
-	while ( getline(reader2, line) && getline(reader3, line3) ){
+	while (getline(reader2, line) && getline(reader3, line3))
+	{
 
-		
+		int startline = 14;
+		int endword = startline;
 
-			int startline = 14;
-			int endword = startline;
-
-			while(line[startline]!=' '){
-				endword++;
-				startline++;
-			}		
-		
-
-		
-		if (line[0]==';')
+		while (line[startline] != ' ')
 		{
-			
+			endword++;
+			startline++;
 		}
 
-	
+		if (line[0] == ';')
+		{
+		}
+
 		//else{
-			cout <<line<<endl;
+		cout << line << endl;
 
-			if ( checkVar( variables, stringPartToString(line, 14, endword) ) !=-1)
+		if (checkVar(variables, stringPartToString(line, 14, endword)) != -1)
+		{
+
+			//cout << variablesNum[ checkVar( variables, stringPartToString(line, 14, endword) ) ] <<endl;
+			int n = variablesNum[checkVar(variables, stringPartToString(line, 14, endword))];
+			vector<char> binary;
+			for (int i = 0; n > 0; i++)
 			{
-			
-				//cout << variablesNum[ checkVar( variables, stringPartToString(line, 14, endword) ) ] <<endl;
-				int n = variablesNum[ checkVar( variables, stringPartToString(line, 14, endword) ) ];
-				vector<char> binary;
-				for (int i = 0; n > 0; i++)
-				{
-					binary.push_back((n % 2 + '0'));
-					n = n / 2;
-				}
+				binary.push_back((n % 2 + '0'));
+				n = n / 2;
+			}
 
-
-				/*for (int i = 0; i < binary.size(); ++i)
+			/*for (int i = 0; i < binary.size(); ++i)
 				{
 					cout <<binary[i];
 				}
 				cout <<endl;*/
 
-				for (int i = 0; i < binary.size(); ++i)
+			for (size_t i = 0; i < binary.size(); i++)
+			{
+
+				for (size_t j = binary.size(); j < 13; j++)
 				{
-					
-					for (int i = binary.size(); i < 13; ++i)
-					{
-						binary.push_back('0');
-					}
+					binary.push_back('0');
 				}
-			
-				string bin;
-				for (int i = 0; i < 13; ++i)
-				{
-					bin.push_back(binary[i]);
-				}
-				//cout <<bin <<endl;
-				writer2 << bin << stringPartToString(line3, 13, 33);
 			}
-			else{
-				writer2 << line3;
+
+			string bin;
+			for (int i = 0; i < 13; ++i)
+			{
+				bin.push_back(binary[i]);
 			}
-			writer2<<endl;
-			lineCounter2++;
-		}		
+			//cout <<bin <<endl;
+			writer2 << bin << stringPartToString(line3, 13, 33);
+		}
+		else
+		{
+			writer2 << line3;
+		}
+		writer2 << endl;
+		lineCounter2++;
+	}
 
 	//}
-
-	
 
 	/*for (size_t i = 0; i < variables.size(); ++i)
 	{

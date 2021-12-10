@@ -10,6 +10,7 @@
     string instToInt(string input);
     int checkInst(string input);
     int checkVar(const vector<string> variables, string stringVar);
+    string int32_t_to_binstr2s(int32_t num);
     int assembler(const string* const fpMachineCode, const string* const outputFP);
     void test();
 #endif
